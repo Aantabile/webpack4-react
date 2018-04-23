@@ -1,0 +1,11 @@
+/*
+* @Author: hj
+* @Date:   2018-04-21 13:03:47
+* @Last Modified by:   hj
+* @Last Modified time: 2018-04-21 15:49:16
+*/
+
+body{
+	display: flex;
+	background: url(./static/bwg/db/1.jpg);
+}
