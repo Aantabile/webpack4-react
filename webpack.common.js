@@ -1,8 +1,8 @@
 /*
 * @Author: hj
 * @Date:   2018-04-15 22:28:18
-* @Last Modified by:   hj
-* @Last Modified time: 2018-04-21 16:45:59
+* @Last Modified by:   Aantabile
+* @Last Modified time: 2018-04-27 23:00:44
 */
 const path = require('path');
 const webpack = require('webpack');
@@ -15,7 +15,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
 	entry: {
-		app: './src/app.js'
+		index: './src/app.jsx'
 	},
 	output: {
 		filename: 'js/[name].[hash:7].js',
@@ -24,24 +24,26 @@ module.exports = {
 	resolve: {
 		extensions: ['.js', '.jsx','.json'],
 		alias: {
-		  src: path.resolve(__dirname, 'src')
+		  src: path.resolve(__dirname, 'src'),
+		  pages: path.resolve(__dirname, 'src/pages'),
+		  components: path.resolve(__dirname, 'src/components')
 		}
 	},
 	//4.0配置
 	optimization: {
-   runtimeChunk: {
-       name: "manifest"
-   },
-   splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: "vendors",
-          priority: -20,
-          chunks: "all"
-        }
-      }
-    }
+	   runtimeChunk: {
+	       name: "manifest"
+	   },
+	   splitChunks: {
+	      cacheGroups: {
+	        vendor: {
+	          test: /[\\/]node_modules[\\/]/,
+	          name: "vendors",
+	          priority: -20,
+	          chunks: "all"
+	        }
+	      }
+       }
 	},
 	plugins: [
 		new CleanWebpackPlugin(['dist']),
