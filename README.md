@@ -1,2 +1,1 @@
-# webpack4.x  && react && cli 
-
+A react-cli based on webpack4.
