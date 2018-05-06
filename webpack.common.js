@@ -2,7 +2,7 @@
 * @Author: hj
 * @Date:   2018-04-15 22:28:18
 * @Last Modified by:   Aantabile
-* @Last Modified time: 2018-04-27 23:00:44
+* @Last Modified time: 2018-05-05 21:52:15
 */
 const path = require('path');
 const webpack = require('webpack');
@@ -26,7 +26,9 @@ module.exports = {
 		alias: {
 		  src: path.resolve(__dirname, 'src'),
 		  pages: path.resolve(__dirname, 'src/pages'),
-		  components: path.resolve(__dirname, 'src/components')
+		  components: path.resolve(__dirname, 'src/components'),
+		  util: path.resolve(__dirname, 'src/util'),
+		  service: path.resolve(__dirname, 'src/service'),
 		}
 	},
 	//4.0配置
@@ -49,7 +51,8 @@ module.exports = {
 		new CleanWebpackPlugin(['dist']),
 
 		new HtmlWebpackPlugin({
-			template: path.join(__dirname, './src/index.html') // 以template.html作为模板文件生成html
+			template: path.join(__dirname, './src/index.html'), // 以template.html作为模板文件生成html
+			favicon: './favicon.ico'
 				// title: 'Production'
 		}),
 		new MiniCssExtractPlugin({
@@ -73,6 +76,7 @@ module.exports = {
 	      {
 	        test: /\.css$/,
 	        use: [
+	          'style-loader',
 	          MiniCssExtractPlugin.loader,
 	          "css-loader",
 	          "postcss-loader"

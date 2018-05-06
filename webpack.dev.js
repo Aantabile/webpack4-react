@@ -1,8 +1,8 @@
 /*
 * @Author: hj
 * @Date:   2018-04-15 22:28:28
-* @Last Modified by:   Aantabile
-* @Last Modified time: 2018-04-19 23:14:17
+* @Last Modified by:   hj
+* @Last Modified time: 2018-05-06 08:00:44
 */
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
@@ -15,10 +15,22 @@ module.exports = merge(common, {
 		contentBase: './dist',
 		compress: true,
 		hot: true,
+		historyApiFallback: true,
+		port: 8086,
+		proxy: {
+			'/manage':{
+				target: 'http://admintest.happymmall.com',
+				changeOrigin: true
+			},
+			'/user/logout.do' : {
+				target: 'http://admintest.happymmall.com',
+				changeOrigin: true
+			}
+		}
 	},
 	
 	plugins: [
-	  //此处关掉这个插件，不然css的热加载功能将失效
+		  // //此处关掉这个插件，不然css的热加载功能将失效
 	  new ExtractTextPlugin({disable: true}),
 	  new webpack.NamedModulesPlugin(),
 	  new webpack.HotModuleReplacementPlugin()

@@ -1,0 +1,33 @@
+/*
+* @Author: hj
+* @Date:   2018-05-06 08:28:53
+* @Last Modified by:   hj
+* @Last Modified time: 2018-05-06 09:16:01
+*/
+.color-box{
+	display: block;
+	height: 160px;
+	text-align: center;
+	padding: 10px 0;
+	opacity: .9;
+	transition: all 0.3s;
+}
+.color-box:hover{
+	text-decoration: none;
+	color: #333;
+	opacity: 1;
+	transform: scale(1.08);
+}
+
+.color-box .count{
+	font-size: 50px;
+	height: 80px;
+	line-height: 80px;
+}
+.color-box .desc{
+	font-size: 18px;
+
+}
+.color-box .desc .fa{
+	margin-right: 5px;
+}
