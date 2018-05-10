@@ -22,7 +22,7 @@ class App extends React.Component{
 			    <Route  path='/product' component={ProductRouter} />
 			    <Route  path='/product-category' component={Home} />
 			    <Route  path='/user' component={UserList} />
-				    {/*<Redirect exact from="/user" to="/user/index" />*/}
+			    <Redirect exact from="/user" to="/user/index" />
 			    <Route  component={ErrorPage} />
 			  </Switch>
 	    </Layout>

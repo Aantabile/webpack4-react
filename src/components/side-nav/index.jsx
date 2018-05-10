@@ -26,7 +26,7 @@ class SideNav extends React.Component{
                   </Link>
                   <ul className="nav nav-second-level collapse in">
                       <li>
-                          <NavLink to="/product" activeClassName="active-menu">商品管理</NavLink>
+                          <NavLink to="/product/index" activeClassName="active-menu">商品管理</NavLink>
                       </li>
                       <li>
                           <NavLink to="/product-category" activeClassName="active-menu">品类管理</NavLink>
@@ -53,7 +53,7 @@ class SideNav extends React.Component{
                   </Link>
                   <ul className="nav nav-second-level collapse in">
                       <li>
-                          <NavLink to="/user" activeClassName="active-menu">用户管理</NavLink>
+                          <NavLink to="/user/index" activeClassName="active-menu">用户管理</NavLink>
                       </li>
                   </ul>
               </li>

@@ -2,7 +2,7 @@
 * @Author: hj
 * @Date:   2018-04-15 22:28:18
 * @Last Modified by:   Aantabile
-* @Last Modified time: 2018-05-05 21:52:15
+* @Last Modified time: 2018-05-09 23:40:39
 */
 const path = require('path');
 const webpack = require('webpack');
@@ -20,6 +20,7 @@ module.exports = {
 	output: {
 		filename: 'js/[name].[hash:7].js',
 		path: path.resolve(__dirname, 'dist'),
+		publicPath: '/'
 	},
 	resolve: {
 		extensions: ['.js', '.jsx','.json'],

@@ -453,6 +453,9 @@ footer p {
 	line-height: 21px;
 	padding-top: 4px;
 }
+.opear{
+	margin-right: 5px;
+}
 
 .active-menu {
 	background-color: #2DAFCB !important;
@@ -618,4 +621,9 @@ ul.nav.nav-second-level.collapse.in {
 }
 
 
+.page-header-right{
+	position: absolute;
+	right: 15px;
+	top: 12px;
+}
 

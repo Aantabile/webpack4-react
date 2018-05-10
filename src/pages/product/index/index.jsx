@@ -2,10 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import PageTitle from 'components/page-title/index.jsx';
+import TableList from 'util/table-list/index.jsx'
 import Pagination from 'util/pagination/index.jsx'
+import ListSearch from './index-search-list.jsx'
 
 import Product from 'service/product.jsx'
 import MUtil from 'util/mm.jsx';
+
+import './index.css'
 
 
 const _product = new Product();
@@ -19,7 +23,7 @@ class ProductList extends React.Component{
 		this.state = {
 			pageNum : 1,
 			list: [],
-			firstLoading: true
+			listType: 'list'
 		}
 	}
 
@@ -28,15 +32,34 @@ class ProductList extends React.Component{
 	}
 
 	loadProductList() {
-		console.log(1)
-		_product.getProductList(this.state.pageNum).then(res => {
-			this.setState(res, () => {
-				this.setState({
-					firstLoading: false
-				})
-			});
+		let listParam =  {};
+		listParam.listType = this.state.listType;
+		listParam.pageNum = this.state.pageNum;
+
+		if(this.state.listType === 'search') {
+			listParam.searchType = this.state.searchType;
+			listParam.keyword = this.state.searchKeyword;
+		}
+
+		_product.getProductList(listParam).then(res => {
+			this.setState(res);
 		}, errMsg => {
+			this.setState({
+				list: []
+			})
 			_mm.errorTips(errMsg);
+		})
+	}
+
+	onSearch(type, word) {
+		let listType = type === '' ? 'list' : 'search';
+		this.setState({
+			listType: listType,
+			pageNum: 1,
+			searchType: type,
+			searchKeyword: word
+		}, () => {
+			this.loadProductList();
 		})
 	}
 
@@ -48,50 +71,72 @@ class ProductList extends React.Component{
 		})
 	}
 
-	render() {
-		let listBody = this.state.list.map((user, index) => {
-    		return (
-    			<tr key={index}>
-    				<td>{user.id}</td>
-    				<td>{user.username}</td>
-    				<td>{user.email}</td>
-    				<td>{user.phone}</td>
-    				<td>{new Date(user.createTime).toLocaleString()}</td>
-    			</tr>
-    		)
-    	})
-		let listError = (
-			<tr>
-			  <td colSpan="5" className="text-center">
-			  {this.state.firstLoading ? "正在加载..." : "没有找到相应的结果"}</td>
-			</tr>
-		)
+	onSetProductStatus(e, currentStatus, productId) {
+		let newStatus = currentStatus == 1 ? 2 : 1,
+		    confirmTips = currentStatus == 1 ? '确定下架该商品?' : '确认商家该商品?';
+		if(window.confirm(confirmTips)) {
+			_product.setProductStatus({
+				productId: productId,
+				status: currentStatus
+			}).then(res => {
+				_mm.successTips(res);
+				this.loadProductList();
+			}), errMsg => {
+				_mm.errorTips(errMsg);
+			}
+		}
 
-		let tableBody = this.state.list.length > 0 ? listBody : listError;
+	}
+
+
+	render() {
+		let tableHeads = [
+		    {name: '商品ID', width: '10%'},
+		    {name: '商品信息', width: '50%'},
+		    {name: '价格', width: '10%'},
+		    {name: '状态', width: '15%'},
+		    {name: '操作', width: '15%'},
+		]
 		return (
 			<div id="page-wrapper">
-				<PageTitle title="商品列表" />
-				<div className="row">
-					<div className="col-md-12">
-						<table className="table table-striped table-bordered">
-							<thead>
-								<tr>
-									<th>ID</th>
-									<th>用户名</th>
-									<th>邮箱</th>
-									<th>电话</th>
-									<th>注册时间</th>
-								</tr>
-							</thead>
-							<tbody>
-							    {tableBody}
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<Pagination current={this.state.pageNum} 
-				            total={this.state.total} 
-				            onChange={(pageNum) =>this.onPageNumChange(pageNum)}/>
+				<PageTitle title="商品列表" >
+				  <div className="page-header-right">
+				    <Link to="/product/save" className="btn btn-primary">
+				      <i className="fa fa-plus"></i>
+				      <span>添加商品</span>
+				    </Link>
+				  </div>
+				</PageTitle>
+				<ListSearch onSearch={(type, word) => {this.onSearch(type, word)}} />
+				<TableList tableHeads={tableHeads}>
+				    {
+				        this.state.list.map((product, index) => {
+				        	return(
+				        		<tr key={index}>
+				        			<td>{product.id}</td>
+				        			<td>
+				        			    <p>{product.name}</p>
+				        			    <p>{product.subtitle}</p>
+				        			</td>
+				        			<td>${product.price}</td>
+				        			<td>
+				        				 <p>{product.status == 1 ? '在售' : '已下架'}</p>
+				        				 <button className="btn  btn-xs btn-warning" onClick={(e) => {this.onSetProductStatus(e, product.status,product.id)}}>{product.status == 1 ? '下架' : '上架'}</button>
+				        			    
+				        			</td>
+				        			<td>
+				        			    <Link className="opear" to={`product/detail/${product.id}`}>查看详情</Link>
+				        			    <Link className="opear"  to={`product/save/${product.id}`}>编辑</Link>
+				        			</td>
+				        		</tr>
+				        	)
+				    	})
+			        }
+				</TableList>
+				<Pagination 
+				    current={this.state.pageNum} 
+		            total={this.state.total} 
+		            onChange={(pageNum) =>this.onPageNumChange(pageNum)}/>
 			</div>
 		);
 	}

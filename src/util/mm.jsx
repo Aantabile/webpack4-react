@@ -44,6 +44,10 @@ class MUtil{
 		alert(msg || '好像哪里不对');
 	}
 
+	successTips(msg) {
+		alert(msg || '操作成功');
+	}
+
 	setStorage(name, data) {
 		let dataType = typeof data;
 		//json对象
