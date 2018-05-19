@@ -1,0 +1,41 @@
+/*
+* @Author: hj
+* @Date:   2018-05-11 22:35:19
+* @Last Modified by:   Aantabile
+* @Last Modified time: 2018-05-12 08:55:14
+*/
+.img-icon{
+	position: relative;
+	width: 80px;
+	height: 80px;
+	float: left;
+	margin-right: 10px;
+	border: 1px solid #ccc;
+}
+.img-icon > img{
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+.file-upload-btn{
+	margin-top: 10px;
+}
+.fa-close{
+	position: absolute;
+	right: 0;
+	top: 0;
+	left: 0;
+	text-align: center;
+	line-height: 80px;
+	display: none;
+	width: 80px;
+	height: 80px;
+	bottom: 0;
+	cursor: pointer;
+	font-size: 50px;
+	color: #aaa;
+	background: rgba(0,0,0,.2);
+}
+.img-icon:hover .fa-close{
+	display: block;
+}

@@ -14,9 +14,11 @@
     "rc-pagination": "^1.15.1",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
+    "react-fileupload": "^2.4.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "simditor": "^2.3.6"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.6",
